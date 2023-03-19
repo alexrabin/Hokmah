@@ -53,14 +53,14 @@ const MUIThemeProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
         MuiCssBaseline: {
           styleOverrides: {
             a: {
-              color: "rgb(236, 69, 120);",
+              color: "#334176",
             },
             "a:hover": {
-              color: "#2B71F2",
+              color: "#594176",
             },
             blockquote: {
-              color: "#2B71F2",
-              borderLeft: "1px solid #2B71F2",
+              color: "#594176",
+              borderLeft: "1px solid ##594176",
               paddingLeft: "20px",
               marginLeft: "0px",
             },

@@ -50,7 +50,7 @@ const MainLayout: React.FC<Props> = ({
   metaType = "website",
 }) => {
   const theme = useTheme();
-
+  const isMounted = useOnMount();
   const { setTheme, resolvedTheme } = useNextTheme();
 
   return (
@@ -103,11 +103,13 @@ const MainLayout: React.FC<Props> = ({
         }}
       />
       <div>
-        <NavigationBar
-          toggleColorMode={() =>
-            setTheme(resolvedTheme === "light" ? "dark" : "light")
-          }
-        />
+        {isMounted && (
+          <NavigationBar
+            toggleColorMode={() =>
+              setTheme(resolvedTheme === "light" ? "dark" : "light")
+            }
+          />
+        )}
         <LayoutContainer {...layoutProps}>
           {children}
           {/* <Footer /> */}
