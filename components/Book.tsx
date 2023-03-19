@@ -6,6 +6,8 @@ type StyledBookProps = {
   endColor?: string;
   mainColor?: string;
 };
+
+// book css source https://codepen.io/poulamic/pen/RwrKqmb
 const BookContainer = styled.div<StyledBookProps>`
   width: 200px;
   height: 250px;
