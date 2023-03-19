@@ -1,13 +1,14 @@
+import Book from "@/components/Book";
 import MainLayout from "@/components/MainLayout";
 import { getAllTexts } from "@/services/sefariaService";
-import { HebrewTexts } from "@/types/Text";
+import { categoryBookStyles, HebrewText } from "@/types/Text";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/system/Container";
 import { GetStaticProps } from "next";
 
 type Props = {
-  hebrewTexts: HebrewTexts[];
+  hebrewTexts: HebrewText[];
 };
 
 export default function Home({ hebrewTexts }: Props) {
@@ -22,9 +23,10 @@ export default function Home({ hebrewTexts }: Props) {
           alignItems="center"
         >
           {hebrewTexts.map((text, i) => {
+            const styles = categoryBookStyles[text.category];
             return (
               <Grid item key={i}>
-                <Typography>{text.category}</Typography>
+                <Book title={text.category} {...styles} />
               </Grid>
             );
           })}

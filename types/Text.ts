@@ -1,4 +1,4 @@
-export type HebrewTexts = {
+export type HebrewText = {
   contents: HebrewTextContent[];
   order: number;
   enComplete: boolean;
@@ -27,6 +27,25 @@ export type Category =
   | "Reference"
   | "Talmud"
   | "Tosefta";
+
+export const categoryBookStyles: { [key: string]: CategoryBookStyle } = {
+  Tanakh: {
+    mainColor: "#00615F",
+    startColor: "#144E5F",
+    endColor: "#144E84",
+  },
+  Mishnah: {
+    mainColor: "#5A99B7",
+    startColor: "#456EB7",
+    endColor: "#456EBC",
+  },
+};
+
+export type CategoryBookStyle = {
+  mainColor: string;
+  startColor: string;
+  endColor: string;
+};
 
 export type HebrewTextContent = {
   contents?: ContentData[];
