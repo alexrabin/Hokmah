@@ -50,33 +50,11 @@ const MainLayout: React.FC<Props> = ({
   metaType = "website",
 }) => {
   const theme = useTheme();
-  const [height, setHeight] = useState<number | string>("100%");
-  const [showBackground, setShowBackground] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setHeight(window.document.body.scrollHeight);
-      setShowBackground(true);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    setTimeout(() => {
-      handleResize();
-    }, 500);
-    // cleanup this component
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   const { setTheme, resolvedTheme } = useNextTheme();
 
-  // When mounted on client, now we can show the UI
-  const mounted = useOnMount();
-
   return (
-    <div>
+    <>
       <Head>
         {theme.palette.mode === "dark" ? (
           <link
@@ -124,20 +102,18 @@ const MainLayout: React.FC<Props> = ({
           siteName: "Hokmah",
         }}
       />
-      {mounted && (
-        <React.Fragment>
-          <NavigationBar
-            toggleColorMode={() =>
-              setTheme(resolvedTheme === "light" ? "dark" : "light")
-            }
-          />
-          <LayoutContainer {...layoutProps}>
-            {children}
-            {/* <Footer /> */}
-          </LayoutContainer>
-        </React.Fragment>
-      )}
-    </div>
+      <div>
+        <NavigationBar
+          toggleColorMode={() =>
+            setTheme(resolvedTheme === "light" ? "dark" : "light")
+          }
+        />
+        <LayoutContainer {...layoutProps}>
+          {children}
+          {/* <Footer /> */}
+        </LayoutContainer>
+      </div>
+    </>
   );
 };
 export default MainLayout;

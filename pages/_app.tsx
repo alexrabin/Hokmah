@@ -42,6 +42,7 @@ export default function App({
 }: MyAppProps) {
   return (
     <>
+      <NextNProgress color="#334176" />
       <PreferredThemeProvider>
         <CacheProvider value={emotionCache}>
           <DefaultSeo {...config} />

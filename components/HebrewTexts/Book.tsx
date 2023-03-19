@@ -2,6 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { HebrewText } from "@/types/Text";
 import { useTheme as useNextTheme } from "next-themes";
+import Link from "next/link";
 
 type StyledBookProps = {
   startColor?: string;
@@ -25,7 +26,7 @@ const BookContainer = styled.div<StyledBookProps>`
     ${(props) => props.endColor} 40px,
     transparent 40px
   );
-  transition: all 0.2s ease-in-out;
+  transition: all 0.3s ease-in-out;
   display: flex;
   flex-direction: row;
   box-shadow: 0 10px 15px
@@ -104,18 +105,20 @@ const Book = ({ text, mainColor, startColor, endColor }: Props) => {
   const { resolvedTheme } = useNextTheme();
 
   return (
-    <BookContainer
-      mainColor={mainColor ?? "#f33139"}
-      startColor={startColor ?? "#d11f2f"}
-      endColor={endColor ?? "#ba0716"}
-      darkMode={resolvedTheme === "dark"}
-    >
-      <div />
-      <span className="no-select">
-        <h2>{title}</h2>
-        <p>{text.enShortDesc}</p>
-      </span>
-    </BookContainer>
+    <Link href={`/texts/${title}`}>
+      <BookContainer
+        mainColor={mainColor ?? "#f33139"}
+        startColor={startColor ?? "#d11f2f"}
+        endColor={endColor ?? "#ba0716"}
+        darkMode={resolvedTheme === "dark"}
+      >
+        <div />
+        <span className="no-select">
+          <h2>{title}</h2>
+          <p>{text.enShortDesc}</p>
+        </span>
+      </BookContainer>
+    </Link>
   );
 };
 

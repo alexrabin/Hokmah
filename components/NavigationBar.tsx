@@ -104,9 +104,11 @@ export default function DrawerAppBar(props: Props) {
                 height={32}
               />
             </Link>
-            <Typography fontSize={35} marginLeft={2}>
-              Hokmah
-            </Typography>
+            <Link href="/">
+              <Typography fontSize={35} marginLeft={2}>
+                Hokmah
+              </Typography>
+            </Link>
           </Box>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (

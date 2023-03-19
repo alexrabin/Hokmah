@@ -16,3 +16,16 @@ export const getAllTexts = async (): Promise<HebrewText[] | null> => {
   }
   return null;
 };
+
+export const getSpecificText = async (
+  text: string
+): Promise<HebrewText | null> => {
+  try {
+    const data: HebrewText[] | null = await getAllTexts();
+    if (!data) {
+      return null;
+    }
+    return data.find((a) => a.category === text) ?? null;
+  } catch (e) {}
+  return null;
+};
