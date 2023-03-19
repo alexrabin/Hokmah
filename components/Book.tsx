@@ -19,7 +19,7 @@ const BookContainer = styled.div<StyledBookProps>`
     ${(props) => props.endColor} 50px,
     transparent 50px
   );
-
+  transition: all 0.2s ease-in-out;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -61,6 +61,10 @@ const BookContainer = styled.div<StyledBookProps>`
       #e4e0ce 48px,
       transparent 50px
     );
+  }
+  :hover {
+    transform: scale(1.1);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
   }
   div {
     width: 60px;
