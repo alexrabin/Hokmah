@@ -26,7 +26,7 @@ export default function Home({ hebrewTexts }: Props) {
             const styles = categoryBookStyles[text.category];
             return (
               <Grid item key={i}>
-                <Book title={text.category} {...styles} />
+                <Book text={text} {...styles} />
               </Grid>
             );
           })}

@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
+import { HebrewText } from "@/types/Text";
 type StyledBookProps = {
   startColor?: string;
   endColor?: string;
   mainColor?: string;
 };
 const BookContainer = styled.div<StyledBookProps>`
-  width: 180px;
+  width: 200px;
   height: 250px;
   transform: translate(0%, 0%);
   top: 0%;
@@ -22,17 +23,16 @@ const BookContainer = styled.div<StyledBookProps>`
   transition: all 0.2s ease-in-out;
   display: flex;
   flex-direction: row;
-  align-items: center;
 
   :after {
     content: "";
     position: absolute;
     height: 42px;
-    width: 174px;
+    width: 190px;
     bottom: 6px;
     right: 0px;
     background: white;
-    border-radius: 16px 4px 4px 16px;
+    border-radius: 16px 1px 1px 16px;
     box-shadow: inset 4px 4px 0px 0px #e4e0ce;
     background-image: linear-gradient(
       to bottom,
@@ -67,24 +67,28 @@ const BookContainer = styled.div<StyledBookProps>`
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
   }
   div {
-    width: 60px;
+    width: 55px;
+  }
+  span {
+    margin-top: 50px;
+    width: 60%;
+    color: white;
   }
   p {
-    color: white;
-    margin-bottom: 40px;
     font-weight: 500;
     font-size: 20px;
     text-align: left;
-    width: 60%;
   }
 `;
 type Props = {
-  title: string;
+  text: HebrewText;
   startColor?: string;
   endColor?: string;
   mainColor?: string;
 };
-const Book = ({ title, mainColor, startColor, endColor }: Props) => {
+const Book = ({ text, mainColor, startColor, endColor }: Props) => {
+  const { category: title } = text;
+
   return (
     <BookContainer
       mainColor={mainColor ?? "#f33139"}
@@ -92,7 +96,9 @@ const Book = ({ title, mainColor, startColor, endColor }: Props) => {
       endColor={endColor ?? "#ba0716"}
     >
       <div />
-      <p className="no-select">{title}</p>
+      <span>
+        <h2 className="no-select">{title}</h2>
+      </span>
     </BookContainer>
   );
 };
