@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { HebrewText } from "@/types/Text";
+import { HebrewText, ShortenedHebrewText } from "@/types/Text";
 import { useTheme as useNextTheme } from "next-themes";
 import Link from "next/link";
 
@@ -95,7 +95,7 @@ const BookContainer = styled.div<StyledBookProps>`
   }
 `;
 type Props = {
-  text: HebrewText;
+  text: ShortenedHebrewText;
   startColor?: string;
   endColor?: string;
   mainColor?: string;

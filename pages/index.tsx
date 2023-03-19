@@ -1,6 +1,6 @@
 import Book from "@/components/HebrewTexts/Book";
 import MainLayout from "@/components/MainLayout";
-import { getAllTexts } from "@/services/sefariaService";
+import { getAllTextsWithShortenedData } from "@/services/sefariaService";
 import { categoryBookStyles, HebrewText } from "@/types/Text";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/system/Container";
@@ -35,7 +35,7 @@ export default function Home({ hebrewTexts }: Props) {
   );
 }
 export const getStaticProps: GetStaticProps = async () => {
-  const data = await getAllTexts();
+  const data = await getAllTextsWithShortenedData();
   return {
     props: {
       hebrewTexts: data,

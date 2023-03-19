@@ -1,3 +1,7 @@
+export type ShortenedHebrewText = {
+  category: string;
+  enShortDesc: string;
+};
 export type HebrewText = {
   contents: HebrewTextContent[];
   order: number;
