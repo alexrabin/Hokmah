@@ -15,7 +15,7 @@ type Props = {
 const TextPage = (props: Props) => {
   const { category, contents, enDesc } = props.hebrewText;
   return (
-    <MainLayout documentTitle={category}>
+    <MainLayout documentTitle={category} description={enDesc}>
       <Container>
         <Box marginBottom={3}>
           <Typography variant="h3">{category}</Typography>
