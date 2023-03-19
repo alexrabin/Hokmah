@@ -13,7 +13,6 @@ export type HebrewText = {
 
 export type Category =
   | "Tanakh"
-  | "Commentary"
   | "Mishnah"
   | "Midrash"
   | "Halakhah"
@@ -32,19 +31,79 @@ export const categoryBookStyles: { [key: string]: CategoryBookStyle } = {
   Tanakh: {
     mainColor: "#00615F",
     startColor: "#144E5F",
-    endColor: "#144E84",
+    endColor: "#104E60",
   },
   Mishnah: {
     mainColor: "#5A99B7",
     startColor: "#456EB7",
     endColor: "#456EBC",
   },
+  Talmud: {
+    mainColor: "#DEB479",
+    startColor: "#CCB479",
+    endColor: "#E6B479",
+  },
+  Midrash: {
+    mainColor: "#5D956F",
+    startColor: "#50886F",
+    endColor: "#508860",
+  },
+  Halakhah: {
+    mainColor: "#80303E",
+    startColor: "#69303E",
+    endColor: "#62303E",
+  },
+  Kabbalah: {
+    mainColor: "#594176",
+    startColor: "#334176",
+    endColor: "#234176",
+  },
+  Liturgy: {
+    mainColor: "#AB4E65",
+    startColor: "#914E65",
+    endColor: "#814E65",
+  },
+  "Jewish Thought": {
+    mainColor: "#7F85A9",
+    startColor: "#7F72A9",
+    endColor: "#7172A9",
+  },
+  Tosefta: {
+    mainColor: "#26827F",
+    startColor: "#26767F",
+    endColor: "#26717F",
+  },
+  Chasidut: {
+    mainColor: "#97B386",
+    startColor: "#97A286",
+    endColor: "#84A286",
+  },
+  Musar: {
+    mainColor: "#7C416F",
+    startColor: "#6B416F",
+    endColor: "#5D416F",
+  },
+  Responsa: {
+    mainColor: "#CB6158",
+    startColor: "#B56158",
+    endColor: "#A96158",
+  },
+  "Second Temple": {
+    mainColor: "#C6A7B4",
+    startColor: "#AEA7B4",
+    endColor: "#9CA7B4",
+  },
+  Reference: {
+    mainColor: "#D4896C",
+    startColor: "#C0896C",
+    endColor: "#B5896C",
+  },
 };
 
 export type CategoryBookStyle = {
-  mainColor: string;
-  startColor: string;
-  endColor: string;
+  mainColor: string; // main part
+  startColor: string; // start of binding color
+  endColor: string; // end of binding color
 };
 
 export type HebrewTextContent = {
