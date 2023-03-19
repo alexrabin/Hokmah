@@ -1,3 +1,4 @@
+import MainLayout from "@/components/MainLayout";
 import { getAllTexts } from "@/services/sefariaService";
 import { HebrewTexts } from "@/types/Text";
 import Grid from "@mui/material/Grid";
@@ -11,23 +12,25 @@ type Props = {
 
 export default function Home({ hebrewTexts }: Props) {
   return (
-    <Container maxWidth="lg">
-      <Grid
-        container
-        spacing={2}
-        justifyContent="center"
-        height={"100%"}
-        alignItems="center"
-      >
-        {hebrewTexts.map((text, i) => {
-          return (
-            <Grid item key={i}>
-              <Typography>{text.category}</Typography>
-            </Grid>
-          );
-        })}
-      </Grid>
-    </Container>
+    <MainLayout layoutProps={{ centerVertical: true }}>
+      <Container maxWidth="lg">
+        <Grid
+          container
+          spacing={2}
+          justifyContent="center"
+          height={"100%"}
+          alignItems="center"
+        >
+          {hebrewTexts.map((text, i) => {
+            return (
+              <Grid item key={i}>
+                <Typography>{text.category}</Typography>
+              </Grid>
+            );
+          })}
+        </Grid>
+      </Container>
+    </MainLayout>
   );
 }
 export const getStaticProps: GetStaticProps = async () => {
