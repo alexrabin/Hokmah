@@ -23,7 +23,7 @@ interface Props {
 }
 
 const drawerWidth = 240;
-const navItems = ["Texts", "Topics"];
+const navItems: string[] = [];
 
 export default function DrawerAppBar(props: Props) {
   const { window } = props;
@@ -43,7 +43,7 @@ export default function DrawerAppBar(props: Props) {
       }}
     >
       <Typography variant="h5" sx={{ my: 2 }} fontFamily={"Expletus Sans"}>
-        Alex Rabin
+        Hokmah
       </Typography>
       <List>
         <Divider />
@@ -138,15 +138,17 @@ export default function DrawerAppBar(props: Props) {
               )}
             </IconButton>
           </Box>
-          <IconButton
-            color={theme.palette.mode === "light" ? "primary" : "inherit"}
-            aria-label="open drawer"
-            edge="end"
-            onClick={handleDrawerToggle}
-            sx={{ display: { sm: "none" } }}
-          >
-            <MenuIcon />
-          </IconButton>
+          {navItems.length > 0 && (
+            <IconButton
+              color={theme.palette.mode === "light" ? "primary" : "inherit"}
+              aria-label="open drawer"
+              edge="end"
+              onClick={handleDrawerToggle}
+              sx={{ display: { sm: "none" } }}
+            >
+              <MenuIcon />
+            </IconButton>
+          )}
         </Toolbar>
       </AppBar>
       <Box
