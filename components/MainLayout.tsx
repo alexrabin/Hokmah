@@ -5,8 +5,7 @@ const NavigationBar = dynamic(() => import("@/components/NavigationBar"));
 import { NextSeo } from "next-seo";
 import Head from "next/head";
 import { useTheme } from "@mui/material/styles";
-import React, { useEffect, useMemo, useState } from "react";
-import Fade from "@mui/material/Fade";
+import React, { useEffect, useState } from "react";
 import { useTheme as useNextTheme } from "next-themes";
 import useOnMount from "@/hooks/useOnMount";
 import generateImage from "@/utils/generateImage";
@@ -70,16 +69,6 @@ const MainLayout: React.FC<Props> = ({
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
-  const numNodes = useMemo(() => {
-    if (height > 1500) {
-      return 25;
-    }
-    if (height > 1000) {
-      return 20;
-    }
-    return 15;
-  }, [height]);
 
   const { setTheme, resolvedTheme } = useNextTheme();
 

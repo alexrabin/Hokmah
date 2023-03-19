@@ -1,40 +1,46 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "@emotion/styled";
 import { HebrewText } from "@/types/Text";
+import { useTheme as useNextTheme } from "next-themes";
+
 type StyledBookProps = {
   startColor?: string;
   endColor?: string;
   mainColor?: string;
+  darkMode: boolean;
 };
 
 // book css source https://codepen.io/poulamic/pen/RwrKqmb
 const BookContainer = styled.div<StyledBookProps>`
-  width: 200px;
-  height: 250px;
+  width: 220px;
+  height: 280px;
   transform: translate(0%, 0%);
   top: 0%;
   left: 0%;
   background: ${(props) => props.mainColor};
-  border-radius: 16px 12px 10px 25px;
+  border-radius: 16px 12px 8px 20px;
   background-image: linear-gradient(
     to right,
-    ${(props) => props.startColor} 48px,
-    ${(props) => props.endColor} 50px,
-    transparent 50px
+    ${(props) => props.startColor} 38px,
+    ${(props) => props.endColor} 40px,
+    transparent 40px
   );
   transition: all 0.2s ease-in-out;
   display: flex;
   flex-direction: row;
+  box-shadow: 0 10px 15px
+    ${(props) =>
+      props.darkMode ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.3)"};
 
   :after {
     content: "";
     position: absolute;
     height: 42px;
-    width: 190px;
+    width: 210px;
     bottom: 6px;
     right: 0px;
     background: white;
-    border-radius: 16px 1px 1px 16px;
+    border-radius: 16px 1px 5px 16px;
     box-shadow: inset 4px 4px 0px 0px #e4e0ce;
     background-image: linear-gradient(
       to bottom,
@@ -66,20 +72,25 @@ const BookContainer = styled.div<StyledBookProps>`
   }
   :hover {
     transform: scale(1.1);
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 15px
+      ${(props) =>
+        props.darkMode ? "rgba(255, 255, 255, 0.3)" : "rgba(0, 0, 0, 0.3)"};
   }
   div {
-    width: 55px;
+    width: 50px;
   }
   span {
-    margin-top: 50px;
+    margin-top: 12px;
     width: 60%;
     color: white;
   }
+  h2 {
+    line-height: 1.2;
+    margin-bottom: 5px;
+  }
   p {
-    font-weight: 500;
-    font-size: 20px;
     text-align: left;
+    font-size: 13px;
   }
 `;
 type Props = {
@@ -90,16 +101,19 @@ type Props = {
 };
 const Book = ({ text, mainColor, startColor, endColor }: Props) => {
   const { category: title } = text;
+  const { resolvedTheme } = useNextTheme();
 
   return (
     <BookContainer
       mainColor={mainColor ?? "#f33139"}
       startColor={startColor ?? "#d11f2f"}
       endColor={endColor ?? "#ba0716"}
+      darkMode={resolvedTheme === "dark"}
     >
       <div />
-      <span>
-        <h2 className="no-select">{title}</h2>
+      <span className="no-select">
+        <h2>{title}</h2>
+        <p>{text.enShortDesc}</p>
       </span>
     </BookContainer>
   );
