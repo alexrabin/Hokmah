@@ -4,6 +4,9 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import React, { useMemo } from "react";
 import { useTheme as useNextTheme } from "next-themes";
+import CardActionArea from "@mui/material/CardActionArea";
+import Link from "next/link";
+import slug from "slug";
 
 type Props = {
   content: ContentData;
@@ -32,10 +35,19 @@ const CategoryContentCard = ({ content }: Props) => {
         height: "100%",
       }}
     >
-      <CardContent>
-        <Typography variant="h5">{title}</Typography>
-        <Typography variant="body2">{content.enShortDesc}</Typography>
-      </CardContent>
+      <CardActionArea sx={{ height: "100%" }}>
+        <Link
+          href={`/book/${slug(title ?? "", {
+            lower: false,
+            replacement: "_",
+          })}`}
+        >
+          <CardContent>
+            <Typography variant="h5">{title}</Typography>
+            <Typography variant="body2">{content.enShortDesc}</Typography>
+          </CardContent>
+        </Link>
+      </CardActionArea>
     </Card>
   );
 };

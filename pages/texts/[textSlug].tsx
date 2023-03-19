@@ -7,7 +7,6 @@ import Grid from "@mui/material/Grid";
 import { GetStaticPaths, GetStaticProps } from "next";
 import React from "react";
 import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
 import CategoryContent from "@/components/HebrewTexts/CategoryContent";
 
 type Props = {
@@ -43,7 +42,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const paths = data?.map((text) => {
     return {
       params: {
-        slug: text.category,
+        textSlug: text.category,
       },
     };
   });
@@ -58,7 +57,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   if (!params) {
     throw new Error("params do not exist");
   }
-  const slug = params.slug as string;
+  const slug = params.textSlug as string;
   const data = await getSpecificText(slug);
   if (!data) {
     throw new Error(`Not Text found for ${slug}`);
