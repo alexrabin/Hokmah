@@ -102,19 +102,20 @@ const MainLayout: React.FC<Props> = ({
           siteName: "Hokmah",
         }}
       />
-      <div>
-        {isMounted && (
+      {isMounted && (
+        <div>
           <NavigationBar
             toggleColorMode={() =>
               setTheme(resolvedTheme === "light" ? "dark" : "light")
             }
           />
-        )}
-        <LayoutContainer {...layoutProps}>
-          {children}
-          {/* <Footer /> */}
-        </LayoutContainer>
-      </div>
+
+          <LayoutContainer {...layoutProps}>
+            {children}
+            {/* <Footer /> */}
+          </LayoutContainer>
+        </div>
+      )}
     </>
   );
 };
