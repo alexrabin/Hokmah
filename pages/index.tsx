@@ -17,7 +17,7 @@ export default function Home({ hebrewTexts }: Props) {
       <Container maxWidth="lg">
         <Grid
           container
-          spacing={2}
+          spacing={3}
           justifyContent="center"
           height={"100%"}
           alignItems="center"

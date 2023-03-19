@@ -30,14 +30,13 @@ const MUIThemeProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
           default: isDark ? "#0C0D0E" : "#FFFFFF",
           paper: isDark ? "#121212" : "#FFFEFC",
         },
-        primary: { main: "#2B71F2" },
-        secondary: { main: "rgb(236, 69, 120);" },
+        primary: { main: "#594176" },
+        secondary: { main: "#334176" },
       },
       typography: {
         fontFamily: [
-          "Source Code Pro",
+          "Noto Serif Hebrew",
           "monospace",
-          "Expletus Sans",
           "-apple-system",
           "BlinkMacSystemFont",
           '"Segoe UI"',
