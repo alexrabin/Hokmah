@@ -55,19 +55,6 @@ const MainLayout: React.FC<Props> = ({
 
   return (
     <>
-      <Head>
-        {theme.palette.mode === "dark" ? (
-          <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-dark.min.css"
-          ></link>
-        ) : (
-          <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-light.min.css"
-          ></link>
-        )}
-      </Head>
       <NextSeo
         title={
           documentTitle && documentTitle.length > 0
