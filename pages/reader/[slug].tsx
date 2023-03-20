@@ -9,12 +9,12 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Container from "@mui/material/Container";
 import ArrowBackIos from "@mui/icons-material/ArrowBackIos";
 import { useRouter } from "next/router";
 import IconButton from "@mui/material/IconButton";
-
+import { useInView } from "react-intersection-observer";
 type Props = {
   refData: TextRef;
   book: string;
@@ -23,12 +23,25 @@ const ReaderPage = ({ refData, book }: Props) => {
   const { ref: title, he, text } = refData;
   const theme = useTheme();
   const router = useRouter();
+
+  const { ref, inView, entry } = useInView({
+    /* Optional options */
+    threshold: 0,
+  });
+
+  useEffect(() => {
+    if (inView) {
+      // load next data
+      console.log("loading next data");
+    }
+  }, [inView]);
   return (
     <MainLayout documentTitle={title}>
       <AppBar
         position="sticky"
         style={{
           top: 50,
+          marginBottom: 10,
           boxShadow: "none",
         }}
       >
@@ -86,6 +99,7 @@ const ReaderPage = ({ refData, book }: Props) => {
             </Box>
           );
         })}
+        <div ref={ref} style={{ width: 10, height: 10 }} />
       </Container>
     </MainLayout>
   );
