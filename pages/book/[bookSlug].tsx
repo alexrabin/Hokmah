@@ -66,16 +66,25 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (!params) {
     throw new Error("params do not exist");
   }
-  context.res.setHeader(
-    "Cache-Control",
-    "public, s-maxage=60, stale-while-revalidate=59"
-  );
-  const slug = params.bookSlug as string;
-  const book = await getBook(slug);
-  return {
-    props: {
-      book,
-      slug,
-    },
-  };
+  try {
+    context.res.setHeader(
+      "Cache-Control",
+      "public, s-maxage=60, stale-while-revalidate=59"
+    );
+    const slug = params.bookSlug as string;
+    const book = await getBook(slug);
+    return {
+      props: {
+        book,
+        slug,
+      },
+    };
+  } catch (e) {
+    return {
+      notFound: true,
+      props: {
+        error: e,
+      },
+    };
+  }
 };

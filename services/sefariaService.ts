@@ -1,5 +1,6 @@
 import { Book } from "@/types/Book";
 import { HebrewText, ShortenedHebrewText } from "@/types/Text";
+import { TextRef } from "@/types/TextRef";
 import Axios from "axios";
 
 const baseURL = "http://www.sefaria.org/api/";
@@ -68,6 +69,16 @@ export const getBook = async (book: string): Promise<Book | null> => {
     return response.data;
   } catch (e) {
     console.log("failed to get book", book);
+  }
+  return null;
+};
+
+export const getTextRef = async (ref: string): Promise<TextRef | null> => {
+  try {
+    const response = await axios.get("/texts/" + ref);
+    return response.data;
+  } catch (e) {
+    console.log("failed to get ref", ref);
   }
   return null;
 };
