@@ -1,6 +1,6 @@
 import MainLayout from "@/components/MainLayout";
 import { getAllTexts, getSpecificText } from "@/services/sefariaService";
-import { HebrewText } from "@/types/Text";
+import { categoryBookStyles, HebrewText } from "@/types/Text";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -23,9 +23,11 @@ const TextPage = (props: Props) => {
         </Box>
         <Grid container flexDirection={"column"} rowSpacing={5}>
           {contents.map((content, i) => {
+            const styles = categoryBookStyles[category];
+
             return (
               <Grid item key={i}>
-                <CategoryContent content={content} />
+                <CategoryContent content={content} colorScheme={styles} />
               </Grid>
             );
           })}

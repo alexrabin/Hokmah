@@ -13,8 +13,8 @@ type StyledBookProps = {
 
 // book css source https://codepen.io/poulamic/pen/RwrKqmb
 const BookContainer = styled.div<StyledBookProps>`
-  width: 220px;
-  height: 280px;
+  width: 250px;
+  height: 300px;
   transform: translate(0%, 0%);
   top: 0%;
   left: 0%;
@@ -37,7 +37,7 @@ const BookContainer = styled.div<StyledBookProps>`
     content: "";
     position: absolute;
     height: 42px;
-    width: 210px;
+    width: 240px;
     bottom: 6px;
     right: 0px;
     background: white;
@@ -82,7 +82,8 @@ const BookContainer = styled.div<StyledBookProps>`
   }
   span {
     margin-top: 12px;
-    width: 60%;
+    width: 70%;
+    height: 80%;
     color: white;
   }
   h2 {
@@ -92,6 +93,10 @@ const BookContainer = styled.div<StyledBookProps>`
   p {
     text-align: left;
     font-size: 13px;
+    display: -webkit-box;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 `;
 type Props = {
@@ -99,13 +104,14 @@ type Props = {
   startColor?: string;
   endColor?: string;
   mainColor?: string;
+  href?: string;
 };
-const Book = ({ text, mainColor, startColor, endColor }: Props) => {
+const Book = ({ text, mainColor, startColor, endColor, href }: Props) => {
   const { category: title } = text;
   const { resolvedTheme } = useNextTheme();
 
   return (
-    <Link href={`/texts/${title}`}>
+    <Link href={href ?? `/texts/${title}`}>
       <BookContainer
         mainColor={mainColor ?? "#f33139"}
         startColor={startColor ?? "#d11f2f"}
