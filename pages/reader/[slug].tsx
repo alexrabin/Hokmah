@@ -8,6 +8,15 @@ import { useInView } from "react-intersection-observer";
 import ReaderSection from "@/components/ReaderSection";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Divider from "@mui/material/Divider";
+import Close from "@mui/icons-material/Close";
+import { useRouter } from "next/dist/client/router";
+import { useTheme } from "@mui/material/styles";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Link from "next/link";
 
 type Props = {
   refData: TextRef;
@@ -19,11 +28,13 @@ const ReaderPage = ({ refData, book, number }: Props) => {
   const [textData, setTextData] = useState<{ [key: string]: TextRef }>({});
   const [currentPage, setCurrentPage] = useState(number);
   const [gettingNextData, setGettingNextData] = useState(false);
-
+  const [currentPageTitle, setCurrentPageTitle] = useState(refData.ref);
   const { ref, inView } = useInView({
     /* Optional options */
     threshold: 0,
   });
+  const router = useRouter();
+  const theme = useTheme();
 
   useEffect(() => {
     const key = `${book + number}`;
@@ -61,9 +72,62 @@ const ReaderPage = ({ refData, book, number }: Props) => {
   return (
     <MainLayout documentTitle={title}>
       <Container maxWidth="md">
+        <AppBar
+          position="sticky"
+          style={{
+            top: 50,
+            marginBottom: 10,
+            boxShadow: "none",
+            zIndex: 10,
+          }}
+        >
+          <Toolbar
+            disableGutters
+            style={{
+              backgroundColor: theme.palette.background.default,
+              color: theme.palette.text.primary,
+            }}
+          >
+            <Container maxWidth="md">
+              <Box
+                sx={{
+                  flexGrow: 1,
+                  display: "flex",
+                  flex: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
+                <IconButton onClick={() => router.push("/")}>
+                  <Close />
+                </IconButton>
+                <Link href={`/book/${book}`}>
+                  <Typography
+                    fontSize={30}
+                    fontWeight="bold"
+                    textAlign="center"
+                  >
+                    {currentPageTitle}
+                  </Typography>
+                </Link>
+                <IconButton onClick={undefined} sx={{ opacity: 0 }}>
+                  <Close />
+                </IconButton>
+              </Box>
+            </Container>
+          </Toolbar>
+          <Divider />
+        </AppBar>
         {Object.entries(textData).map((data) => {
           const [key, value] = data;
-          return <ReaderSection refData={value} key={key} book={book} />;
+          return (
+            <ReaderSection
+              refData={value}
+              key={key}
+              book={book}
+              setCurrentTitle={setCurrentPageTitle}
+            />
+          );
         })}
         {gettingNextData && (
           <Box justifyContent={"center"} display="flex">

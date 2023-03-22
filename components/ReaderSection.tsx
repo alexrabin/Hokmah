@@ -1,35 +1,24 @@
 import { TextRef } from "@/types/TextRef";
-import Close from "@mui/icons-material/Close";
-import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
-import { useTheme } from "@mui/material/styles";
-import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
 type Props = {
   book: string;
   refData: TextRef;
+  setCurrentTitle: (title: string) => void;
 };
-const ReaderSection = ({ book, refData }: Props) => {
-  const theme = useTheme();
-  const router = useRouter();
-  const [hasSetRoute, setRoute] = useState(false);
+const ReaderSection = ({ book, refData, setCurrentTitle }: Props) => {
   const { ref, inView } = useInView({
     /* Optional options */
     threshold: 0,
   });
 
   useEffect(() => {
-    if (inView && !hasSetRoute) {
-      setRoute(true);
+    if (inView) {
       if (window.history.replaceState) {
+        setCurrentTitle(refData.ref);
         //prevents browser from storing history with each change:
         window.history.replaceState(
           null,
@@ -37,53 +26,29 @@ const ReaderSection = ({ book, refData }: Props) => {
           `/reader/${book}.${refData.sections[0]}`
         );
       }
-    } else if (!inView) {
-      setRoute(false);
     }
-  }, [book, hasSetRoute, inView, refData, router]);
+  }, [book, inView, refData]);
 
   return (
     <div ref={ref}>
-      <AppBar
-        position="sticky"
-        style={{
-          top: 50,
-          marginBottom: 10,
-          boxShadow: "none",
-          zIndex: 10,
+      <Box
+        sx={{
+          flexGrow: 1,
+          display: "flex",
+          flex: "row",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
-        <Toolbar
-          disableGutters
-          style={{
-            backgroundColor: theme.palette.background.default,
-            color: theme.palette.text.primary,
-          }}
+        <Typography
+          fontSize={25}
+          textAlign="center"
+          borderBottom={"3px solid #594176"}
+          marginBottom={2}
         >
-          <Container maxWidth="md">
-            <Box
-              sx={{
-                flexGrow: 1,
-                display: "flex",
-                flex: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <IconButton onClick={() => router.push("/")}>
-                <Close />
-              </IconButton>
-              <Link href={`/book/${book}`}>
-                <Typography fontSize={30} textAlign="center">
-                  {refData.ref}
-                </Typography>
-              </Link>
-              <div></div>
-            </Box>
-          </Container>
-        </Toolbar>
-        <Divider />
-      </AppBar>
+          {refData.sections[0]}
+        </Typography>
+      </Box>
       {refData.text.map((line, index) => {
         return (
           <Box key={index} marginBottom={3}>
