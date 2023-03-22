@@ -29,9 +29,14 @@ const ReaderSection = ({ book, refData }: Props) => {
   useEffect(() => {
     if (inView && !hasSetRoute) {
       setRoute(true);
-      router.push(`/reader/${book}.${refData.sections[0]}`, undefined, {
-        shallow: true,
-      });
+      if (window.history.replaceState) {
+        //prevents browser from storing history with each change:
+        window.history.replaceState(
+          null,
+          window.document.title,
+          `/reader/${book}.${refData.sections[0]}`
+        );
+      }
     } else if (!inView) {
       setRoute(false);
     }

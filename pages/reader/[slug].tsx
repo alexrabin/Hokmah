@@ -1,13 +1,13 @@
 import MainLayout from "@/components/MainLayout";
 import { getTextRef } from "@/services/sefariaService";
 import { TextRef } from "@/types/TextRef";
-import { useTheme } from "@mui/material/styles";
 import { GetServerSideProps } from "next";
 import React, { useCallback, useEffect, useState } from "react";
 import Container from "@mui/material/Container";
-import { useRouter } from "next/router";
 import { useInView } from "react-intersection-observer";
 import ReaderSection from "@/components/ReaderSection";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 
 type Props = {
   refData: TextRef;
@@ -65,6 +65,11 @@ const ReaderPage = ({ refData, book, number }: Props) => {
           const [key, value] = data;
           return <ReaderSection refData={value} key={key} book={book} />;
         })}
+        {gettingNextData && (
+          <Box justifyContent={"center"} display="flex">
+            <CircularProgress />
+          </Box>
+        )}
         <div ref={ref} style={{ width: 10, height: 10 }} />
       </Container>
     </MainLayout>
