@@ -1,5 +1,5 @@
 import { TextRef } from "@/types/TextRef";
-import ArrowBackIos from "@mui/icons-material/ArrowBackIos";
+import Close from "@mui/icons-material/Close";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
@@ -65,8 +65,8 @@ const ReaderSection = ({ book, refData }: Props) => {
                 justifyContent: "space-between",
               }}
             >
-              <IconButton onClick={() => router.back()}>
-                <ArrowBackIos />
+              <IconButton onClick={() => router.push("/")}>
+                <Close />
               </IconButton>
               <Link href={`/book/${book}`}>
                 <Typography fontSize={30} textAlign="center">
