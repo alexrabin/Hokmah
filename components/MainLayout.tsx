@@ -64,7 +64,7 @@ const MainLayout: React.FC<Props> = ({
         canonical={metaUrl}
         description={description ?? "Cool Stuff Technology Expert"}
         openGraph={{
-          url: metaUrl ?? "https://www.alexrabin.com",
+          url: metaUrl ?? "https://hokmah.vercel.com",
           type: metaType,
           title:
             documentTitle && documentTitle.length > 0

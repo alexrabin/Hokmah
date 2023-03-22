@@ -30,8 +30,8 @@ const createImage = async (req: NextRequest) => {
         <img
           width="256"
           height="256"
-          src={image ?? `https://www.alexrabin.com/apple-touch-icon.png`}
-          alt={title ?? "Alex Rabin"}
+          src={image ?? `https://hokmah.vercel.com/apple-touch-icon.png`}
+          alt={title ?? "Hokmah"}
         />
         <p
           style={{
@@ -43,7 +43,7 @@ const createImage = async (req: NextRequest) => {
             textAlign: "center",
           }}
         >
-          {title ?? "Alex Rabin"}
+          {title ?? "Hokmah"}
         </p>
       </div>
     )
