@@ -7,6 +7,11 @@ const baseURL = "http://www.sefaria.org/api/";
 
 const axios = Axios.create({
   baseURL,
+  responseType: "json",
+  headers: {
+    "Content-Type": "application/json",
+    "Accept-Encoding": "application/json",
+  },
 });
 
 export const getAllTexts = async (): Promise<HebrewText[] | null> => {

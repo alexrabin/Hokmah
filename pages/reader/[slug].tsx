@@ -1,103 +1,69 @@
 import MainLayout from "@/components/MainLayout";
 import { getTextRef } from "@/services/sefariaService";
 import { TextRef } from "@/types/TextRef";
-import Divider from "@mui/material/Divider";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
 import { useTheme } from "@mui/material/styles";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import { GetServerSideProps } from "next";
-import Link from "next/link";
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Container from "@mui/material/Container";
-import ArrowBackIos from "@mui/icons-material/ArrowBackIos";
 import { useRouter } from "next/router";
-import IconButton from "@mui/material/IconButton";
 import { useInView } from "react-intersection-observer";
+import ReaderSection from "@/components/ReaderSection";
+
 type Props = {
   refData: TextRef;
   book: string;
+  number: number;
 };
-const ReaderPage = ({ refData, book }: Props) => {
-  const { ref: title, he, text } = refData;
-  const theme = useTheme();
-  const router = useRouter();
+const ReaderPage = ({ refData, book, number }: Props) => {
+  const { ref: title } = refData;
+  const [textData, setTextData] = useState<{ [key: string]: TextRef }>({});
+  const [currentPage, setCurrentPage] = useState(number);
+  const [gettingNextData, setGettingNextData] = useState(false);
 
-  const { ref, inView, entry } = useInView({
+  const { ref, inView } = useInView({
     /* Optional options */
     threshold: 0,
   });
 
   useEffect(() => {
+    const key = `${book + number}`;
+    setTextData({ [key]: refData });
+  }, [book, number, refData]);
+  const getNextRef = useCallback(async () => {
+    try {
+      setGettingNextData(true);
+      const nextData = await getTextRef(book + "." + (currentPage + 1));
+      setCurrentPage((prev) => prev + 1);
+      if (nextData) {
+        const key = `${book + currentPage + 1}`;
+        setTextData((prev) => {
+          return {
+            ...prev,
+            [key]: nextData,
+          };
+        });
+      }
+    } catch (e) {
+    } finally {
+      setGettingNextData(false);
+    }
+  }, [currentPage, book]);
+
+  useEffect(() => {
     if (inView) {
       // load next data
-      console.log("loading next data");
+      if (!gettingNextData) {
+        getNextRef();
+      }
     }
-  }, [inView]);
+  }, [getNextRef, gettingNextData, inView]);
+
   return (
     <MainLayout documentTitle={title}>
-      <AppBar
-        position="sticky"
-        style={{
-          top: 50,
-          marginBottom: 10,
-          boxShadow: "none",
-        }}
-      >
-        <Toolbar
-          disableGutters
-          style={{
-            backgroundColor: theme.palette.background.default,
-            color: theme.palette.text.primary,
-          }}
-        >
-          <Container maxWidth="md">
-            <Box
-              sx={{
-                flexGrow: 1,
-                display: "flex",
-                flex: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <IconButton onClick={() => router.back()}>
-                <ArrowBackIos />
-              </IconButton>
-              <Link href={`/book/${book}`}>
-                <Typography fontSize={30} textAlign="center">
-                  {title}
-                </Typography>
-              </Link>
-              <div></div>
-            </Box>
-          </Container>
-        </Toolbar>
-        <Divider />
-      </AppBar>
       <Container maxWidth="md">
-        {text.map((line, index) => {
-          return (
-            <Box key={index} marginBottom={3}>
-              <Box
-                display={"flex"}
-                justifyContent="flex-end"
-                alignItems={"center"}
-                marginBottom={1}
-              >
-                <Box
-                  dangerouslySetInnerHTML={{ __html: he[index] }}
-                  textAlign="right"
-                  fontSize={25}
-                />
-                <Typography color={"grey"} marginLeft={1}>
-                  {index + 1}
-                </Typography>
-              </Box>
-              <Box dangerouslySetInnerHTML={{ __html: line }} fontSize={18} />
-            </Box>
-          );
+        {Object.entries(textData).map((data) => {
+          const [key, value] = data;
+          return <ReaderSection refData={value} key={key} book={book} />;
         })}
         <div ref={ref} style={{ width: 10, height: 10 }} />
       </Container>
@@ -123,6 +89,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       props: {
         refData,
         book: slug.split(".")[0],
+        number: parseInt(slug.split(".")[1]),
       },
     };
   } catch (e) {
